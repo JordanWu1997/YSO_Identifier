@@ -1,8 +1,8 @@
-./__pycache__
-./models
-./classification/test
-./probe_model/test
-./classification/__pycache__
-./probe_model/__pycahe__
-./tables/template_star_WI_max_Av_50_SED_mag.txt
-./tables/star_SED_mag.txt
+/__pycache__
+/models
+/classification/test
+/probe_model/test
+/classification/__pycache__
+/probe_model/__pycahe__
+/tables/template_star_WI_max_Av_50_SED_mag.txt
+/tables/star_SED_mag.txt
