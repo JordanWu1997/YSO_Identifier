@@ -39,7 +39,7 @@ def generate_mag_array_list(input_catalog_list,
     for i, (input_type, input_catalog) in enumerate(
             zip(input_type_list, input_catalog_list)):
         if input_type == 'txt':
-            mag_array = np.loadtxt(input_catalog)
+            mag_array = np.loadtxt(input_catalog, ndmin=2)
         elif input_type == 'arr':
             mag_array = extract_mag_from_array_npy(input_catalog,
                                                    input_binsize_list[i],
@@ -60,7 +60,7 @@ def generate_filtered_input_array_list(input_catalog_list, filtered=-999.):
     """
     input_array_list = []
     for input_catalog in input_catalog_list:
-        input_array = np.loadtxt(input_catalog, dtype=float)[:, :8]
+        input_array = np.loadtxt(input_catalog, dtype=float, ndmin=2)[:, :8]
         filtered_list = []
         for array in input_array:
             if not np.all(array != filtered):

@@ -10,14 +10,16 @@ from plot_SED import plot_SED
 
 
 def main():
-    SED_mag_array = np.loadtxt('./tables/C2D_HREL-ALL-SED_mag_exXU.txt')[:, :8]
-    evolved_star_mag_array = np.loadtxt(
-        './tables/evolved_star_SED_mag.txt')[:, :8]
-    star_mag_array = np.loadtxt('./tables/star_SED_mag.txt')[:, :8]
-    galaxy_mag_array = np.loadtxt('./tables/galaxy_SED_mag.txt')[:, :8]
+    SED_mag_array = np.loadtxt('./tables/C2D_HREL-ALL-SED_mag_exXU.txt',
+                               ndmin=2)[:, :8]
+    evolved_star_mag_array = np.loadtxt('./tables/evolved_star_SED_mag.txt',
+                                        ndmin=2)[:, :8]
+    star_mag_array = np.loadtxt('./tables/star_SED_mag.txt', ndmin=2)[:, :8]
+    galaxy_mag_array = np.loadtxt('./tables/galaxy_SED_mag.txt',
+                                  ndmin=2)[:, :8]
     YSO_mag_array = np.loadtxt(
-        './results/C2D_HREL-ALL-SED_mag_exXU/result_model_evolved_star_star_galaxy_bin1.0/YSO-SED_mag.txt'
-    )[:, :8]
+        './results/C2D_HREL-ALL-SED_mag_exXU/result_model_evolved_star_star_galaxy_bin1.0/YSO-SED_mag.txt',
+        ndmin=2)[:, :8]
 
     plt.subplots(2, 2, figsize=(20, 16))
     plt.subplot(2, 2, 1)

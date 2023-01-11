@@ -29,7 +29,7 @@ def main():
     ]
 
     # Interactive Mode
-    if (len(sys.argv) == 2) and (sys.argv[1] == 'interactive'):
+    if (len(sys.argv) == 2) and ('interactive' in sys.argv[1]):
         # Output directory
         output_dir = input(
             "--> Enter result output directory (Default: {}):\n--> ".format(

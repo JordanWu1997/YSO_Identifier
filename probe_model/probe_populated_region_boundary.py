@@ -247,7 +247,7 @@ def probe_sample_and_generate_populated_region_grid_dicts(
     shape = calculate_shape_of_grid_mag_space(binsize, verbose=True)
     for input_catalog, input_name in zip(input_catalog_list, input_name_list):
         print("{}: {}\n".format(input_name, input_catalog))
-        mag_array = np.loadtxt(input_catalog)
+        mag_array = np.loadtxt(input_catalog, ndmin-2)
         mag_array[mag_array == lack_indicator] = 0.
 
         # Grid in magnitude space

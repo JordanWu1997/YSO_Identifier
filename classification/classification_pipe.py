@@ -124,7 +124,7 @@ def run_classification(input_SED_mag_txt,
                    galaxy_upper_bound_dict)
     models.binsize = binsize
     models.do_reclassify = do_reclassify
-    SED_mag_array = np.loadtxt(input_SED_mag_txt, dtype=float)[:, :8]
+    SED_mag_array = np.loadtxt(input_SED_mag_txt, dtype=float, ndmin=2)[:, :8]
     result_list, objecttype_ID_dict = pipeline(
         SED_mag_array,
         models,

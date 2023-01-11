@@ -5,8 +5,8 @@ import sys
 import numpy as np
 
 from classifiers import (HL_AGB_star_flag, bin_SED_mag, bright_flag,
-                     decompose_separation_to_nearest_bound, evolved_star_flag,
-                     faint_flag, galaxy_flag, star_flag)
+                         decompose_separation_to_nearest_bound,
+                         evolved_star_flag, faint_flag, galaxy_flag, star_flag)
 
 sys.path.append('../')
 from model import Model
@@ -196,7 +196,8 @@ def pipeline(
                 continue
 
         # Isolated classifier, reclassification operator
-        if (classifier_mask_array[5] != 1) and is_isolated and model.do_reclassify:
+        if (classifier_mask_array[5] !=
+                1) and is_isolated and model.do_reclassify:
             # Isolated before reclassification
             non_rc_isolated_ID_list.append(i)
             if is_lower:
@@ -337,7 +338,8 @@ def main():
     model.binsize = 1.0
     model.do_reclassify = True
     SED_mag_array = np.loadtxt('../tables/C2D_HREL-ALL-SED_mag_exXU.txt',
-                               dtype=float)[:, :8]
+                               dtype=float,
+                               ndmin=2)[:, :8]
     result_list, objecttype_ID_dict = pipeline(
         SED_mag_array,
         model,
