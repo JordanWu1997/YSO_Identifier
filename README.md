@@ -15,7 +15,7 @@ Table of Contents
    * [3. TL;DR How to use this tool?](#3-tldr-how-to-use-this-tool)
       * [3.1. Preparation](#31-preparation)
          * [3.1.1. Install Required Python Packages (Python 3)](#311-install-required-python-packages-python-3)
-         * [3.1.2. Prepare samples catalogs](#312-prepare-samples-catalogs)
+         * [3.1.2. Prepare Sample Catalogs](#312-prepare-sample-catalogs)
          * [3.1.3. Check Parameters](#313-check-parameters)
       * [3.2 Probe Object-populated Region](#32-probe-object-populated-region)
       * [3.3 Run Classification](#33-run-classification)
@@ -121,14 +121,15 @@ Note that we only do this process to galaxy samples in this work.
 ### 3.1. Preparation
 
 #### 3.1.1. Install Required Python Packages (Python 3)
+
 ```bash
-python3 -m pip install ./requirements.txt
+python3 -m pip install -r ./requirements.txt
 ```
 
-#### 3.1.2. Prepare samples catalogs
+#### 3.1.2. Prepare Sample Catalogs
 This work needs three sample catalogs for evolved stars, stars and galaxies.
 We provides these three catalogs in `./tables` directory.
-But note that since the size of template star catalog is too large for github, we provide the scripts for user to generate template star on their own.
+But note that since the size of template star catalog is too large (~120 MB) for github, we provide the scripts for user to generate template star on their own.
 
 ```bash
 cd ./tables
@@ -138,11 +139,17 @@ cd ..
 ```
 
 #### 3.1.3. Check Parameters
+Python object `Model` stores parameters for multi-dimensional magnitude space.
+
+
 ```bash
 vim ./model.py
 ```
 
 ### 3.2 Probe Object-populated Region
+Probe object samples in multi-dimensional magnitude space to get object-populated region.
+By default, we probe evolved star, star and galaxy samples with input sample catalogs in `./tables` directory with bin size `1.0`, `0.5`, `0.2` magnitude respectively.
+
 ```bash
 vim ./run_probe_model # Check input catalogs
 python3 ./run_probe_model.py
@@ -152,12 +159,14 @@ python3 ./run_probe_model.py
 Choose either ways to run classification
 
 #### 3.3.1. With Interactively Input Catalogs
+
 ```bash
 python3 ./run_classification.py interactively
 ```
 
 #### 3.3.2. With Preset Input Catalogs
 Recommended if you have a lot of catalogs for classification
+
 ```bash
 vim ./run_classification.py # Check input catalogs
 python3 ./run_classification.py
