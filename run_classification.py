@@ -9,6 +9,7 @@ from classification_pipe import (create_output_dir, generate_input_list,
 
 def main():
     """  """
+
     # Output directory
     output_dir = './results'
 
@@ -26,6 +27,51 @@ def main():
     binsize_model_list = [
         1.0,
     ]
+
+    # Interactive Mode
+    if (len(sys.argv) == 2) and (sys.argv[1] == 'interactive'):
+        # Output directory
+        output_dir = input(
+            "--> Enter result output directory (Default: {}):\n--> ".format(
+                output_dir)) or output_dir
+        print('--> Use {}\n'.format(output_dir))
+        # Input SED catalog
+        catalog_list = [
+            input(
+                "--> Enter SED catalog for classification (Default: {}):\n--> "
+                .format(catalog_list[0])) or catalog_list[0]
+        ]
+        print('--> Use {}\n'.format(catalog_list[0]))
+        # Input evolved star model
+        evolved_star_model_list = [
+            input(
+                "--> Enter evolved star model for classification (Default: {}):\n--> "
+                .format(evolved_star_model_list[0]))
+            or evolved_star_model_list[0]
+        ]
+        print('--> Use {}\n'.format(evolved_star_model_list[0]))
+        # Input star model
+        star_model_list = [
+            input(
+                "--> Enter star model for classification (Default: {}):\n--> ".
+                format(star_model_list[0])) or star_model_list[0]
+        ]
+        print('--> Use {}\n'.format(star_model_list[0]))
+        # Input galaxy model
+        galaxy_model_list = [
+            input(
+                "--> Enter galaxy model for classification (Default: {}):\n--> "
+                .format(galaxy_model_list[0])) or galaxy_model_list[0]
+        ]
+        print('--> Use {}\n'.format(galaxy_model_list[0]))
+        # Input binsize
+        binsize_model_list = [
+            float(
+                input(
+                    "--> Enter binsize for model and classification (Default: {:.1f}):\n--> "
+                    .format(binsize_model_list[0])) or binsize_model_list[0])
+        ]
+        print('--> Use {:.1f}\n'.format(binsize_model_list[0]))
 
     # Generate input list
     input_lists = generate_input_list(catalog_list,
