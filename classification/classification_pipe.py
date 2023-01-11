@@ -108,10 +108,11 @@ def run_classification(input_SED_mag_txt,
                        binsize,
                        out_dir='./',
                        min_no_lack=3,
-                       evolved_star_flag_model='HL_evolved_star',
+                       evolved_star_flag_model='evolved_star',
                        evolved_star_criteria='within_bounds',
                        star_criteria='within_bounds',
                        galaxy_criteria='above_lower_bound',
+                       band_mask=','.join(['0'] * len(Model.band_name_list)),
                        PSF_mask=False,
                        PSF_array=None,
                        classifier_mask='0,0,0,0,0,0',
@@ -124,7 +125,8 @@ def run_classification(input_SED_mag_txt,
                    galaxy_upper_bound_dict)
     models.binsize = binsize
     models.do_reclassify = do_reclassify
-    SED_mag_array = np.loadtxt(input_SED_mag_txt, dtype=float, ndmin=2)[:, :8]
+    SED_mag_array = np.loadtxt(input_SED_mag_txt, dtype=float,
+                               ndmin=2)[:, :len(Model.band_name_list)]
     result_list, objecttype_ID_dict = pipeline(
         SED_mag_array,
         models,
@@ -133,6 +135,7 @@ def run_classification(input_SED_mag_txt,
         evolved_star_criteria=evolved_star_criteria,
         star_criteria=star_criteria,
         galaxy_criteria=galaxy_criteria,
+        band_mask=band_mask,
         PSF_mask=PSF_mask,
         PSF_array=PSF_array,
         classifier_mask=classifier_mask)

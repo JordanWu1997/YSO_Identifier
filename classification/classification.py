@@ -33,7 +33,7 @@ def pipeline(
     evolved_star_criteria='within_bounds',
     star_criteria='within_bounds',
     galaxy_criteria='above_lower_bound',
-    band_mask='0,0,0,0,0,0,0,0',
+    band_mask=','.join(['0'] * len(Model.band_name_list)),
     classifier_mask='0,0,0,0,0,0',
     PSF_mask=False,
     PSF_array=None,
@@ -339,12 +339,13 @@ def main():
     model.do_reclassify = True
     SED_mag_array = np.loadtxt('../tables/C2D_HREL-ALL-SED_mag_exXU.txt',
                                dtype=float,
-                               ndmin=2)[:, :8]
+                               ndmin=2)[:, :len(Model.band_name_list)]
     result_list, objecttype_ID_dict = pipeline(
         SED_mag_array,
         model,
         evolved_star_flag_model='not_HL_AGB_star',
-        band_mask='0,0,0,0,0,0,0,0')
+        band_mask=','.join(['0'] * len(Model.band_name_list)),
+    )
     analyze_objecttype(objecttype_ID_dict)
     save_objecttype_index(objecttype_ID_dict, out_dir=out_dir)
     save_objecttype_SED_mag(SED_mag_array, objecttype_ID_dict, out_dir=out_dir)
