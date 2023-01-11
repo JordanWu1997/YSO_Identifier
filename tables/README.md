@@ -22,11 +22,11 @@
 - Since the star sample catalog is __too large__ for storage (~200 MB)
 - Here we provides the script for users to generate star sample catalog by themselves
     ```bash
+    chmod u+x ./generate_star_sample_catalog.sh
     ./generate_star_sample_catalog.sh
     ```
 
 ![Sample_Source_Star](../figures/Sample_Source_Star.png)
-
 
 #### Galaxy Sample Catalog: `./galaxy_SED_mag.txt`
 ![Sample_Source_Galaxy](../figures/Sample_Source_Galaxy.png)

@@ -127,6 +127,8 @@ python3 -m pip install ./requirements.txt
 
 #### 3.1.2. Prepare samples catalogs
 This work needs three sample catalogs for evolved stars, stars and galaxies.
+We provides these three catalogs in `./tables` directory.
+But note that since the size of template star catalog is too large for github, we provide the scripts for user to generate template star on their own.
 
 ```bash
 cd ./tables
