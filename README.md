@@ -1,10 +1,40 @@
 # Identifying Young Stellar Objects in Multi-dimensional Magnitude Space
 
+Table of Contents
+=================
+
+* [Identifying Young Stellar Objects in Multi-dimensional Magnitude Space](#identifying-young-stellar-objects-in-multi-dimensional-magnitude-space)
+* [Context](#context)
+   * [1. Introduction](#1-introduction)
+      * [1.1 YSO Identification](#11-yso-identification)
+      * [1.2 How Magnitude Space Works](#12-how-magnitude-space-works)
+   * [2. Method](#2-method)
+      * [2.1 Find Object-populated Region](#21-find-object-populated-region)
+      * [2.2 Classification Pipeline](#22-classification-pipeline)
+      * [2.3 Isolated Object and Reclassification Process](#23-isolated-object-and-reclassification-process)
+   * [3. TL;DR How to use this tool?](#3-tldr-how-to-use-this-tool)
+      * [3.1. Preparation](#31-preparation)
+         * [3.1.1. Install Required Python Packages (Python 3)](#311-install-required-python-packages-python-3)
+         * [3.1.2. Prepare samples catalogs](#312-prepare-samples-catalogs)
+         * [3.1.3. Check Parameters](#313-check-parameters)
+      * [3.2 Probe Object-populated Region](#32-probe-object-populated-region)
+      * [3.3 Run Classification](#33-run-classification)
+         * [3.3.1. With Interactively Input Catalogs](#331-with-interactively-input-catalogs)
+         * [3.3.2. With Preset Input Catalogs](#332-with-preset-input-catalogs)
+      * [3.4 Visualization](#34-visualization)
+         * [3.4.1 Magnitude-Magnitude Diagram (MMD)](#341-magnitude-magnitude-diagram-mmd)
+         * [3.4.2 Spectral Energy Distribution (SED) in Magnitude](#342-spectral-energy-distribution-sed-in-magnitude)
+         * [3.4.3 Venn Diagram for Models](#343-venn-diagram-for-models)
+
+Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
+
 # Context
 
 ## 1. Introduction
 Young Stellar Objects (YSOs) are young stars at early stage of evolution. They are consists of protostar and pre-main-sequence stars.
 Identifying YSOs is important to derive statistical properties e.g. star formation rate (SFR) which helps to better constrain star formation theories.
+In this work, we take the indirect approach to find YSOs by constructing a pipeline to classify astronomical objects: evolved stars, stars, galaxies, and YSOs, solely based on their photometry measurements from multiple bands.
+The classification is based on object-populated regions of evolved stars, stars, and galaxies in the multi-dimensional magnitude space, and sources are classified as YSOs if they are not in the previous regions.
 
 ### 1.1 YSO Identification
 There are two major approaches to do YSO identification: direct approach and indirect approach
@@ -40,7 +70,7 @@ Fortunately, there are no many very bright galaxies.
 | :--:                                                                                                    |
 | Green/Blue dots within orange probe indicate Galaxies/YSOs separated due to their brightness difference |
 
-## 3. Method
+## 2. Method
 In this work, we use object samples to __naturally defined object-populated region__ in multi-D magnitude space.
 The object will be classified into evolved star, star, galaxy or YSO __based on the object-populated region it locates__.
 The concept of multi-D magnitude space is first proposed by Hsieh & Lai 2013, this work improves their work to the higher dimension.
@@ -49,7 +79,7 @@ The concept of multi-D magnitude space is first proposed by Hsieh & Lai 2013, th
 | :--:                                                                 |
 | Multi-D magnitude space in this work (2D magnitude space schematics) |
 
-### 3.1 Find Object-populated Region
+### 2.1 Find Object-populated Region
 In Hsieh & Lai 2013, they use __multi-D array to construct the whole multi-D magnitude space__, however it needs enormous RAM to store that array.
 To solve the RAM problem, in this work, we change the storage method from multi-d array to __2D array composed by sets of location of boundary points__.
 We first project all object samples along the faint direction (as shown in previous section, they have identical SED shapes) to find all SED shapes of samples.
@@ -60,7 +90,7 @@ In this work,  we assume object-populated region are always continuous, therefor
 | :--:                                                                                    |
 | Probe green samples with orange probe and find both bright-end and faint-end boundaries |
 
-### 3.2 Classification Pipeline
+### 2.2 Classification Pipeline
 Input objects will first be __binned to save computation time__ and __compared their location in multi-D magnitude space to object-populated regions__ that are probed with the method in previous section.
 Note that here we define the bright and faint regions to classify those objects outside the region of interest (where all samples locate) and give them object type bright and faint.
 For those bright/faint objects, due to their brightness/faintness, we suggest them as YSOs/galaxies.
@@ -69,7 +99,7 @@ For those bright/faint objects, due to their brightness/faintness, we suggest th
 | :--:                                                                                            |
 | This work classification pipeline with 2D magnitude space schematics                            |
 
-### 3.3 Isolated Object and Reclassification Process
+### 2.3 Isolated Object and Reclassification Process
 Since the multi-D magnitude space is huge and it is hard to observe all SED shapes in practice, there are some regions that do not have observed samples.
 This region is called the __isolated region__ because of __missing SED shapes of samples__ and objects locate in this region are called __isolated objects__.
 
@@ -86,50 +116,79 @@ Note that we only do this process to galaxy samples in this work.
 | :--:                                                                |
 | Reclassification process and detailed criteria                      |
 
-## TL;DR How to use this tool?
+## 3. TL;DR How to use this tool?
 
-### Preparation
+### 3.1. Preparation
 
-#### 1. Install Required Python Packages (Python 3)
+#### 3.1.1. Install Required Python Packages (Python 3)
 ```bash
-python3 -m pip install requirements.txt
+python3 -m pip install ./requirements.txt
 ```
 
-#### 2. Prepare samples catalogs
+#### 3.1.2. Prepare samples catalogs
 This work needs three sample catalogs for evolved stars, stars and galaxies.
 
-#### 3. Check Parameters
 ```bash
-vim model.py
+cd ./tables
+chmod u+x ./generate_star_sample_catalog.sh
+./generate_star_sample_catalog.sh
+cd ..
 ```
 
-### Probe Object-populated Region
+#### 3.1.3. Check Parameters
 ```bash
+vim ./model.py
+```
+
+### 3.2 Probe Object-populated Region
+```bash
+vim ./run_probe_model # Check input catalogs
 python3 ./run_probe_model.py
 ```
 
-### Run Classification
+### 3.3 Run Classification
+Choose either ways to run classification
+
+#### 3.3.1. With Interactively Input Catalogs
 ```bash
+python3 ./run_classification.py interactively
+```
+
+#### 3.3.2. With Preset Input Catalogs
+Recommended if you have a lot of catalogs for classification
+```bash
+vim ./run_classification.py # Check input catalogs
 python3 ./run_classification.py
 ```
 
-### Visualization
+### 3.4 Visualization
+
+#### 3.4.1 Magnitude-Magnitude Diagram (MMD)
+
 ```bash
+vim ./plot_sample_MMD.py # Check input catalogs
 python3 ./plot_sample_MMD.py
 ```
 ![MMD_sample](./figures/MMD_sample.png)
 
 ```bash
+vim ./plot_result_MMD.py # Check input catalogs
 python3 ./plot_result_MMD.py
 ```
 ![MMD_result](./figures/MMD_result.png)
 
+#### 3.4.2 Spectral Energy Distribution (SED) in Magnitude
+
 ```bash
+vim ./plot_sample_SED.py # Check input catalogs
 python3 ./plot_sample_SED.py
 ```
 ![SED_this_work_sample](./figures/SED_this_work_sample.png)
 
+#### 3.4.3 Venn Diagram for Models
+
 ```bash
+vim ./plot_model_venn_diagram.py # Check input catalogs
 python3 ./plot_model_venn_diagram.py
 ```
 ![VD_WO_projection](./figures/VD_WO_projection.png)
