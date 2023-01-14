@@ -25,7 +25,7 @@ This main classification pipeline is packed in `./classification.py`.
 
 | ![Pipeline_Main_Classification](../figures/Pipeline_Main_Classification.png)               |
 | :--:                                                                                       |
-| Main Classification pipeline for binned selected source with 2D magnitude space schematics |
+| Main Classification Pipeline for binned selected source with 2D magnitude space schematics |
 
 ## Input
 

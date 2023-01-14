@@ -85,6 +85,7 @@ To solve the RAM problem, in this work, we change the storage method from multi-
 We first project all object samples along the faint direction (as shown in previous section, they have identical SED shapes) to find all SED shapes of samples.
 Then, we find __the brightest dot and the faintest dot for the individual type of SED shape__ and store them as __bright-end boundary__ and __faint-end boundary__ respectively.
 In this work,  we assume object-populated region are always continuous, therefore the bright-end boundaries and faint-end boundaries define the object-populated region of the samples.
+For samples used in this work, please check [./tables/README.md](./tables/README.md).
 
 | ![Cartoon_Finding_Boundary](./figures/Cartoon_Finding_Boundary.png)                     |
 | :--:                                                                                    |
@@ -94,6 +95,7 @@ In this work,  we assume object-populated region are always continuous, therefor
 Input objects will first be __binned to save computation time__ and __compared their location in multi-D magnitude space to object-populated regions__ that are probed with the method in previous section.
 Note that here we define the bright and faint regions to classify those objects outside the region of interest (where all samples locate) and give them object type bright and faint.
 For those bright/faint objects, due to their brightness/faintness, we suggest them as YSOs/galaxies.
+For more detailed description, please check [./classification/README.md](./classification/README.md).
 
 | ![Cartoon_Classification_Pipeline_2D_MMD](./figures/Cartoon_Classification_Pipeline_2D_MMD.png) |
 | :--:                                                                                            |
@@ -140,7 +142,7 @@ cd ..
 
 #### 3.1.3. Check Parameters
 Python object `Model` stores parameters for multi-dimensional magnitude space.
-
+For more details, please check `./model.py` file.
 
 ```bash
 vim ./model.py
@@ -149,6 +151,7 @@ vim ./model.py
 ### 3.2 Probe Object-populated Region
 Probe object samples in multi-dimensional magnitude space to get object-populated region.
 By default, we probe evolved star, star and galaxy samples with input sample catalogs in `./tables` directory with bin size `1.0`, `0.5`, `0.2` magnitude respectively.
+For more details about input/output/module files, please check `./probe_model` directory.
 
 ```bash
 vim ./run_probe_model # Check input catalogs
@@ -156,7 +159,8 @@ python3 ./run_probe_model.py
 ```
 
 ### 3.3 Run Classification
-Choose either ways to run classification
+Choose either ways to run classification.
+For more details about input/output/module files, please check `./classification` directory.
 
 #### 3.3.1. With Interactively Input Catalogs
 
@@ -173,6 +177,7 @@ python3 ./run_classification.py
 ```
 
 ### 3.4 Visualization
+For more details about input/output/module files, please check `./make_plot` directory.
 
 #### 3.4.1 Magnitude-Magnitude Diagram (MMD)
 
