@@ -29,7 +29,7 @@ def pipeline(
     min_no_lack=3,
     multiple_labels=False,
     decomposition=True,
-    evolved_star_flag_model='HL_AGB_star',
+    evolved_star_flag_model='evolved_star',
     evolved_star_criteria='within_bounds',
     star_criteria='within_bounds',
     galaxy_criteria='above_lower_bound',
@@ -64,7 +64,8 @@ def pipeline(
 
         # PSF_mask (mask input band with imtype (PSF qualifier))
         if PSF_mask and (PSF_array is not None):
-            non_im1_mask = np.where(PSF_array[i] != 1)[0] + 2
+            # non_im1_mask = np.where(PSF_array[i] != 1)[0] + 2
+            non_im1_mask = np.where(PSF_array[i] != 1)[0]
             SED_mag[non_im1_mask] = Model.lack_indicator
 
         # Find and record lack band
