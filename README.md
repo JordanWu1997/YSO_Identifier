@@ -1,9 +1,9 @@
-# Identifying Young Stellar Objects in Multi-dimensional Magnitude Space
+# YSO Identifier: Identifying Young Stellar Objects in Multi-dimensional Magnitude Space
 
 Table of Contents
 =================
 
-* [Identifying Young Stellar Objects in Multi-dimensional Magnitude Space](#identifying-young-stellar-objects-in-multi-dimensional-magnitude-space)
+* [YSO Identifier: Identifying Young Stellar Objects in Multi-dimensional Magnitude Space](#yso-identifier-identifying-young-stellar-objects-in-multi-dimensional-magnitude-space)
 * [Context](#context)
    * [1. Introduction](#1-introduction)
       * [1.1 YSO Identification](#11-yso-identification)
@@ -64,7 +64,7 @@ However, since YSOs and galaxies have similar composition, both are made of star
 But since their distances to us are very different, most YSOs we can observe locate within Milky Way Galaxy, as most galaxies are far-away from our Milky Way Galaxy.
 Therefore, we __use their brightness difference to separate them__.
 Note that this method has a caveat, since the separation of YSOs and galaxies are based on brightness, we might miss __very faint YSOs__ and contaminate YSOs with __very bright galaxies__.
-Fortunately, there are no many very bright galaxies.
+Fortunately, there are not so many very bright galaxies.
 
 | ![Cartoon_SED_AND_MMD_YSO_AND_Galaxy](./figures/Cartoon_SED_AND_MMD_YSO_AND_Galaxy.png)                 |
 | :--:                                                                                                    |
@@ -130,11 +130,13 @@ python3 -m pip install -r ./requirements.txt
 
 #### 3.1.2. Prepare Sample Catalogs
 This work needs three sample catalogs for evolved stars, stars and galaxies.
-We provides these three catalogs in `./tables` directory.
+We provides these three catalogs in [./tables](./tables) directory.
 But note that since the size of template star catalog is too large (~120 MB) for github, we provide the scripts for user to generate template star on their own.
+Also, you can just skip this section if you want to use your own sample catalogs.
+For sample catalog format, please check [./tables/README.md](./tables/README.md).
 
 ```bash
-cd ./tables
+cd ./tables # Make sure you are in table directory
 chmod u+x ./generate_star_sample_catalog.sh
 ./generate_star_sample_catalog.sh
 cd ..
@@ -142,7 +144,8 @@ cd ..
 
 #### 3.1.3. Check Parameters
 Python object `Model` stores parameters for multi-dimensional magnitude space.
-For more details, please check `./model.py` file.
+For more details, please check [./model.py](./model.py) file.
+Use vim or whatever editor you like to check variable in `Model`.
 
 ```bash
 vim ./model.py
@@ -150,17 +153,29 @@ vim ./model.py
 
 ### 3.2 Probe Object-populated Region
 Probe object samples in multi-dimensional magnitude space to get object-populated region.
-By default, we probe evolved star, star and galaxy samples with input sample catalogs in `./tables` directory with bin size `1.0`, `0.5`, `0.2` magnitude respectively.
-For more details about input/output/module files, please check `./probe_model` directory.
+By default, we probe evolved star, star and galaxy samples with input sample catalogs in [./tables](./tables) directory with bin size `1.0`, `0.5`, `0.2` magnitude respectively.
+For more details about input/output/module files, please check [./probe_model](./probe_model) directory.
+Use vim or whatever editor you like to check inputs.
 
 ```bash
-vim ./run_probe_model # Check input catalogs
+vim ./run_probe_model.py
+```
+
+Please check following 1D lists in `main()`, especially you are using your own sample catalogs
+
+1. `input_catalog_list`: input catalog list for samples (e.g. evolved star, star, and galaxy)
+2. `input_name_list`: input catalog name list (this would be later used as output model name)
+3. `binsize_model_list`: bin size list (bin size used to probe multi-D space)
+
+If input checking is done, run
+
+```bash
 python3 ./run_probe_model.py
 ```
 
 ### 3.3 Run Classification
 Choose either ways to run classification.
-For more details about input/output/module files, please check `./classification` directory.
+For more details about input/output/module files, please check [./classification](./classification) directory.
 
 #### 3.3.1. With Interactively Input Catalogs
 
@@ -169,15 +184,31 @@ python3 ./run_classification.py interactively
 ```
 
 #### 3.3.2. With Preset Input Catalogs
-Recommended if you have a lot of catalogs for classification
+Recommended if you have a lot of catalogs for classification.
+But note that you have to assign models (e.g. evolved star, star, galaxy, and bin size) for every input catalog.
+Use vim or whatever editor you like to check inputs.
 
 ```bash
-vim ./run_classification.py # Check input catalogs
+vim ./run_classification.py
+```
+
+Please check following 1D lists in `main()` to make sure you have correct inputs, especially you are using your own models generated from your own sample catalogs.
+Note that list 1~5 should have same list length.
+
+1. `catalog_list`: input catalog list
+2. `evolved_star_model_list`: evolved star model name list
+3. `star_model_list`: star model name list
+4. `galaxy_model_list`: galaxy model name list
+5. `binsize_model_list`: bin size list
+
+If input check is done, run
+
+```bash
 python3 ./run_classification.py
 ```
 
 ### 3.4 Visualization
-For more details about input/output/module files, please check `./make_plot` directory.
+For more details about input/output/module files, please check [./make_plot](./make_plot) directory.
 
 #### 3.4.1 Magnitude-Magnitude Diagram (MMD)
 
