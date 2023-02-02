@@ -31,7 +31,7 @@ Created by [gh-md-toc](https://github.com/ekalinin/github-markdown-toc)
 # Context
 
 ## 1. Introduction
-Young Stellar Objects (YSOs) are young stars at early stage of evolution. They are consists of protostar and pre-main-sequence stars.
+Young Stellar Objects (YSOs) are young stars at early stage of evolution. YSOs consist of protostars and pre-main-sequence stars.
 Identifying YSOs is important to derive statistical properties e.g. star formation rate (SFR) which helps to better constrain star formation theories.
 In this work, we take the indirect approach to find YSOs by constructing a pipeline to classify astronomical objects: evolved stars, stars, galaxies, and YSOs, solely based on their photometry measurements from multiple bands.
 The classification is based on object-populated regions of evolved stars, stars, and galaxies in the multi-dimensional magnitude space, and sources are classified as YSOs if they are not in the previous regions.
@@ -39,7 +39,7 @@ The classification is based on object-populated regions of evolved stars, stars,
 ### 1.1 YSO Identification
 There are two major approaches to do YSO identification: direct approach and indirect approach
 - __Direct approach__: Find objects with feature of YSOs
-    - Spectroscopy (pros: accurate; cons __NOT very efficient__)
+    - Spectroscopy (pros: accurate; cons: __NOT very efficient__)
 - __Indirect approach__: Remove objects that are not YSOs
     - Evans et al. 2007: Color-color diagram (CCD), Color-magnitude diagram (CMD)
     - Hsieh and Lai 2013: Multi-D magnitude space (__this approach is adopted by this work__)
@@ -56,9 +56,9 @@ This means classifying objects in magnitude space is equivalent to __classifying
 For locations along the __faint direction__ (diagonal direction), SED shape of each location is identical but with different magnitude.
 This can be viewed as the __same type of objects__ with different brightness due to the distance
 
-| ![Cartoon_SED_AND_MMD_diagonal_probe](./figures/Cartoon_SED_AND_MMD_diagonal_probe.png) |
-| :---:                                                                                   |
-| Green dots within orange probe in faint direction can be viewed as same type of objects |
+| ![Cartoon_SED_AND_MMD_diagonal_probe](./figures/Cartoon_SED_AND_MMD_diagonal_probe.png)    |
+| :---:                                                                                      |
+| Green dots within orange probe along faint direction can be viewed as same type of objects |
 
 However, since YSOs and galaxies have similar composition, both are made of star and dust, we cannot simply use SED shape to separate them.
 But since their distances to us are very different, most YSOs we can observe locate within Milky Way Galaxy, as most galaxies are far-away from our Milky Way Galaxy.
@@ -136,7 +136,7 @@ Also, you can just skip this section if you want to use your own sample catalogs
 For sample catalog format, please check [./tables/README.md](./tables/README.md).
 
 ```bash
-cd ./tables # Make sure you are in table directory
+cd ./tables # Make sure you are in the tables directory
 chmod u+x ./generate_star_sample_catalog.sh
 ./generate_star_sample_catalog.sh
 cd ..
@@ -162,12 +162,13 @@ vim ./run_probe_model.py
 ```
 
 Please check following 1D lists in `main()`, especially you are using your own sample catalogs
+Note that list 1 and 2 should have same list length
 
 1. `input_catalog_list`: input catalog list for samples (e.g. evolved star, star, and galaxy)
 2. `input_name_list`: input catalog name list (this would be later used as output model name)
 3. `binsize_model_list`: bin size list (bin size used to probe multi-D space)
 
-If input checking is done, run
+If input check is done, run
 
 ```bash
 python3 ./run_probe_model.py
