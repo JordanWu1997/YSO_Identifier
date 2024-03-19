@@ -19,6 +19,13 @@
 ![Sample_Source_Evolved_Star](../figures/Sample_Source_Evolved_Star.png)
 
 #### Star Sample Catalog: `./star_SED_mag.txt`
+
+##### Star Template
+- Here we use star model in Koornneef et al. 1983 to get flux in J, H, Ks bands
+- And use [STAR-PET](https://irsa.ipac.caltech.edu/data/SPITZER/docs/dataanalysistools/tools/pet/starpet/) from Spitzer project to calculate flux in IRA1, IRAC2, IRAC3, IRAC4, MIPS1 bands
+- The flux ratio template is documented in `./star_koornneef.dat`
+
+##### Generate your own star SED catalogs from templates
 - Since the star sample catalog is __too large__ for storage (~200 MB)
 - Here we provides the script for users to generate star sample catalog by themselves
     ```bash
